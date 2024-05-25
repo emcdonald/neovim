@@ -1,9 +1,6 @@
 -- Leader key
 vim.g.mapleader = " "
 
--- Core nvim settings
-require("eric")
-
 -- lazy.nvim init
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -18,7 +15,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
+-- lazy will load my 'plugins' dir
 require("lazy").setup("plugins", {
   --dev = {
   -- directory where you store your local plugin projects

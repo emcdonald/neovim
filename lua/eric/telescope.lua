@@ -7,10 +7,8 @@ vim.keymap.set('n', '<leader>vh', builtin.help_tags, {desc = "NVim Help Tags"})
 local wk = require("which-key")
 
 wk.register({
-	v = {
-		name = "view"
-	},
+  v = {
+    name = "view"
+  },
 }, { prefix = "<leader>" })
-
-
 

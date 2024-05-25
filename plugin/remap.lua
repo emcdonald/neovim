@@ -5,8 +5,8 @@
 
 local map = vim.keymap.set
 
-map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected line down"})
-map("v", "K", ":m '<-2<CR>gv=gv", {desc = "Move selected line up"})
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected line down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected line up" })
 
 map("n", "J", "mzJ`z")
 map("n", "<C-d>", "<C-d>zz")
@@ -15,17 +15,17 @@ map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
 -- Paste over visually selected line and preserve current paste buffer
-map("x", "<leader>p", [["_dP]])
+map("x", "<leader>p", [["_dP]], { desc = "Paste (preserve)" })
 
 -- Delete selection and skip the delete buffer
-map({"n", "v"}, "<leader>d", [["_d]])
+map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete (void)" })
 
 -- This is going to get me cancelled
 map("i", "<C-c>", "<Esc>")
 
 map("n", "Q", "<nop>")
 
-map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace token" })
 
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
@@ -68,10 +68,10 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsea
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 map(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff Update" }
+	"n",
+	"<leader>ur",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -110,17 +110,17 @@ map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- formatting
-map({ "n", "v" }, "<leader>cf", function()
-  LazyVim.format({ force = true })
-end, { desc = "Format" })
+-- map({ "n", "v" }, "<leader>cf", function()
+--   LazyVim.format({ force = true })
+-- end, { desc = "Format" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	severity = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity })
+	end
 end
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
@@ -145,7 +145,8 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 --if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
 --  map( "n", "<leader>uh", function() LazyVim.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
 --end
-map("n", "<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" })
+map("n", "<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end,
+  { desc = "Toggle Treesitter Highlight" })
 --map("n", "<leader>ub", function() LazyVim.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
 
 
@@ -164,4 +165,3 @@ map("n", "<leader>w-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>w|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
-

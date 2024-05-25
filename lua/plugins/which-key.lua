@@ -9,5 +9,9 @@ return {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
-  }
+  },
+  config = function()
+    require("which-key").setup()
+    require("eric.which-key")
+  end,
 }
